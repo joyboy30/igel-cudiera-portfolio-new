@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { PaperPlaneTilt, CheckCircle, WarningCircle, EnvelopeSimple, ArrowUpRight, WhatsappLogo, Briefcase, GithubLogo, DownloadSimple } from '@/components/slab'
+import { PaperPlaneTilt, CheckCircle, WarningCircle, EnvelopeSimple, ArrowUpRight, WhatsappLogo, LinkedinLogo, GithubLogo, DownloadSimple } from '@/components/slab'
 import { profile } from '@/data/profile'
 import { readLead, submitLead, SubmitError, MAX_NAME, MAX_EMAIL, MAX_MESSAGE, type SubmitResult } from '@/lib/contact'
 import { usePageMeta } from '@/hooks/usePageMeta'
@@ -8,7 +8,7 @@ import { usePageMeta } from '@/hooks/usePageMeta'
  * ContactGrid - the Contact view as a fixed viewport.
  *
  * One glass sheet, two columns: how we can work together and the direct
- * routes (email, WhatsApp, OnlineJobs.ph, GitHub, resume) on the left, on a
+ * routes (email, WhatsApp, LinkedIn, GitHub, resume) on the left, on a
  * dark plate, and the form itself on the right. No phone number is shown. Sized to the panel, so
  * nothing here scrolls; the message box takes whatever height is left.
  *
@@ -104,10 +104,10 @@ export default function ContactGrid() {
               </a>
             </li>
             <li>
-              <a className="croute" href={profile.onlineJobs} target="_blank" rel="noopener noreferrer">
-                <Briefcase size={16} weight="fill" aria-hidden="true" />
-                <span className="croute__label">OnlineJobs.ph</span>
-                <span className="croute__value">Freelancer profile</span>
+              <a className="croute" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+                <LinkedinLogo size={16} weight="fill" aria-hidden="true" />
+                <span className="croute__label">LinkedIn</span>
+                <span className="croute__value">in/igelcudiera</span>
               </a>
             </li>
             <li>

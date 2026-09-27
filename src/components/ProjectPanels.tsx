@@ -279,7 +279,7 @@ function IndustryPanel({ ic }: { ic: IndustryCase }) {
           ['Client', ic.client],
           ['Industry', ic.industry],
           ['My role', <span className={ic.role.includes(NEEDS_VERIFICATION) ? 'cs__nv' : undefined}>{ic.role}</span>],
-          ['Platform', <span className="cs__nv">{ic.platform}</span>],
+          ['Platform', <span className={ic.platform.includes(NEEDS_VERIFICATION) ? 'cs__nv' : undefined}>{ic.platform}</span>],
           ['Live URL', ic.liveUrl ?? noUrl],
           ...(ic.tools.length ? ([['Tools', ic.tools.join(', ')]] as [string, ReactNode][]) : []),
         ]}

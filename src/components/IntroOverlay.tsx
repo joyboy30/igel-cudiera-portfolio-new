@@ -132,7 +132,9 @@ export default function IntroOverlay() {
       canvas.style.height = `${CANVAS_H}px`
 
       const height = t?.height ?? title.offsetHeight
-      const scale = Math.min((window.innerWidth * 0.86) / width, 2.6)
+      // Capped low: the headline wraps to two or three lines, and scaling that
+      // block up to fill the screen made it tower over the viewport.
+      const scale = Math.min((window.innerWidth * 0.86) / width, 1.3)
       const w = width * scale
       const h = height * scale
       const sx = (window.innerWidth - w) / 2

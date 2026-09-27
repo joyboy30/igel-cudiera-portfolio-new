@@ -205,7 +205,7 @@ export const industryCases: IndustryCase[] = [
     client: 'The Jamil Brothers Realty Group',
     industry: 'Residential real estate · Northern Virginia',
     role: 'SEO Specialist (April – July 2026)',
-    platform: `Website platform ${NEEDS_VERIFICATION}`,
+    platform: 'Kajabi (blog and content publishing)',
     work: [
       'SEO blogs for home sellers, downsizing and home equity',
       'Re-optimized existing posts for heading hierarchy, semantic keywords and intent',
@@ -213,8 +213,9 @@ export const industryCases: IndustryCase[] = [
       'Fixed FAQ schema validation and structured data',
       'Directories, Web 2.0 backlinks and outreach for topical authority',
       'Audited and repaired broken internal links',
+      'Published blog posts and content on Kajabi',
     ],
-    tools: ['Google Rich Results Test'],
+    tools: ['Kajabi', 'Google Rich Results Test'],
     results: [
       'Cited in Google AI Overviews for 8 seller-intent queries (plus 1 with ExploreVAHomes)',
       'Cited in ChatGPT answers for 7 of the same queries (plus 1 with ExploreVAHomes)',

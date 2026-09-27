@@ -31,6 +31,7 @@ export const experience: Role[] = [
       'Content strategy, AI Search Optimization (AIO/AEO) and technical SEO for a Northern Virginia real estate team, with seller-intent content cited in Google AI Overviews and ChatGPT answers.',
     work: [
       'Wrote SEO blogs for home sellers, downsizing and home-equity topics',
+      'Published blog posts and content on Kajabi',
       'Re-optimized existing blogs for heading hierarchy, semantic keywords and search intent',
       'Optimized content for Google AI Overviews, ChatGPT and AEO/GEO visibility',
       'Resolved keyword cannibalization with content consolidation and 301 redirects',
@@ -116,6 +117,8 @@ export type Certificate = {
   evidence: Evidence
   /** Printed on the certificate itself. No verification URL is available. */
   credentialId?: string
+  /** The original certificate file, when it was supplied as a PDF. */
+  pdf?: string
 }
 
 export const certifications: Certificate[] = [
@@ -176,6 +179,18 @@ export const certifications: Certificate[] = [
     evidence: 'Certification',
     credentialId: 'VALS-001-0234',
   },
+  {
+    // From public/certificates/gohighlevel-certificate.pdf. The certificate
+    // shows no date and no credential ID, so none are given here.
+    title: 'Certificate of Participation: 3-Hour Live GoHighLevel Workshop',
+    issuer: 'Excelerate Digital Marketing',
+    date: 'Date not shown on certificate',
+    image: '/certificates/gohighlevel-certificate.webp',
+    thumb: '/certificates/gohighlevel-certificate-sm.webp',
+    description: 'Participation in a 3-hour live GoHighLevel workshop.',
+    evidence: 'Training',
+    pdf: '/certificates/gohighlevel-certificate.pdf',
+  },
 ]
 
 export const timeline = [
@@ -206,12 +221,13 @@ export const skillTiers: SkillTier[] = [
       'SEO audits',
       'Schema markup',
       'WordPress website builds',
+      'Kajabi blog & content publishing',
     ],
   },
   {
     tier: 'Trained',
     note: 'Formal training and certificates',
-    skills: ['Google Ads', 'Meta / Facebook Ads', 'Campaign budgeting', 'Audience & retargeting setup'],
+    skills: ['Google Ads', 'Meta / Facebook Ads', 'Campaign budgeting', 'Audience & retargeting setup', 'GoHighLevel (workshop)'],
   },
   {
     tier: 'Growing',
@@ -225,7 +241,6 @@ export const skillTiers: SkillTier[] = [
       'Lofty',
       'Shopify',
       'Duda',
-      'Kajabi',
     ],
   },
 ]

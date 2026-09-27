@@ -4,10 +4,18 @@
  *
  * Every value is taken from the previous portfolio (site-config.ts, hero.tsx,
  * about.tsx) or from Igel's own instructions for this rebuild. Nothing here is
- * inferred. The personal phone number is deliberately absent.
+ * inferred.
+ *
+ * Contact links live here once and every component reads them from this file
+ * (rail, Contact, the phone header). The WhatsApp link uses the number Igel
+ * supplied for it; the number itself is not printed anywhere as text.
  */
 
 import { Briefcase, ChartLineUp, Clock, type Icon } from '@/components/slab'
+
+const WHATSAPP = 'https://wa.me/639196098689'
+const LINKEDIN = 'https://www.linkedin.com/in/igelcudiera/'
+const GITHUB = 'https://github.com/joyboy30'
 
 export type SocialLink = {
   label: string
@@ -48,7 +56,7 @@ export type Profile = {
   availability: { mode: string; hours: string; rate: string; source: string }
   resumeSrc: string
   whatsapp: string
-  onlineJobs: string
+  linkedin: string
   github: string
   /** Third-party talent profile linked from the previous hero. */
   sova: string
@@ -82,13 +90,13 @@ export const profile: Profile = {
   engagements: ['Part-time', 'Project-based', 'Freelance', 'Contract', 'Monthly retainer', 'Long-term remote support'],
   availability: { mode: 'Part-time', hours: '4 hours/day', rate: '$9/hour', source: 'OnlineJobs.ph' },
   resumeSrc: '/resume/Igel-Cudiera-Resume.pdf',
-  whatsapp: 'https://wa.me/qr/MHR7GGFUNYJ3B1',
-  onlineJobs: 'https://www.onlinejobs.ph/jobseekers/info/2687450',
-  github: 'https://github.com/joyboy30',
+  whatsapp: WHATSAPP,
+  linkedin: LINKEDIN,
+  github: GITHUB,
   sova: 'https://sovatalents.com/talent/igel-cudiera/',
   socials: [
-    { label: 'Chat on WhatsApp', href: 'https://wa.me/qr/MHR7GGFUNYJ3B1', iconPath: '/icons/social/whatsapp.svg' },
-    { label: 'OnlineJobs.ph profile', href: 'https://www.onlinejobs.ph/jobseekers/info/2687450', iconPath: '/icons/social/onlinejobs.svg' },
-    { label: 'GitHub profile', href: 'https://github.com/joyboy30', iconPath: '/icons/social/github.svg' },
+    { label: 'WhatsApp', href: WHATSAPP, iconPath: '/icons/social/whatsapp.svg' },
+    { label: 'LinkedIn', href: LINKEDIN, iconPath: '/icons/social/linkedin.svg' },
+    { label: 'GitHub', href: GITHUB, iconPath: '/icons/social/github.svg' },
   ],
 }

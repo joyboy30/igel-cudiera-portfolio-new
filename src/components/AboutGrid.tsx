@@ -1,6 +1,6 @@
 import { useEffect, type CSSProperties } from 'react'
 import { useLocation } from 'react-router-dom'
-import { ArrowUpRight, MapPin, GraduationCap, Translate, Briefcase, DownloadSimple } from '@/components/slab'
+import { ArrowUpRight, MapPin, GraduationCap, Translate, Briefcase, DownloadSimple, FilePdf } from '@/components/slab'
 import { profile } from '@/data/profile'
 import { experience, education, languages, industries, certifications, timeline, skillTiers } from '@/data/about'
 import { ICONS } from '@/data/services'
@@ -93,7 +93,7 @@ export default function AboutGrid() {
               </span>
               <span className="agrid__cell-copy">
                 <span className="agrid__cell-title">{certifications.length} certificates</span>
-                <span className="agrid__cell-meta">Pinoy SEO · SEO Workout · Margin & Momentum</span>
+                <span className="agrid__cell-meta">SEO · GoHighLevel · ads · VA training</span>
               </span>
             </span>
 
@@ -180,6 +180,13 @@ export default function AboutGrid() {
               <p className="certs__issuer">{c.issuer}</p>
               <p className="certs__desc">{c.description}</p>
               {c.credentialId && <p className="certs__id">Operator ID {c.credentialId}</p>}
+              {c.pdf && (
+                <a className="certs__pdf" href={c.pdf} target="_blank" rel="noopener noreferrer">
+                  <FilePdf size={15} weight="duotone" aria-hidden="true" />
+                  View certificate (PDF)
+                  <ArrowUpRight size={13} weight="bold" aria-hidden="true" />
+                </a>
+              )}
             </li>
           ))}
         </ul>

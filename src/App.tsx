@@ -7,7 +7,7 @@ import IntroOverlay from '@/components/IntroOverlay'
 import CursorRing from '@/components/CursorRing'
 import AccessMenu from '@/components/AccessMenu'
 import { motionReduced } from '@/lib/a11y'
-import { useLenis, SCROLLER_ID } from '@/hooks/useLenis'
+import { useLenis, resetShellScroll, SCROLLER_ID } from '@/hooks/useLenis'
 import { useIsPhone } from '@/hooks/useMediaQuery'
 import { getPerfTier, watchFrameHealth, PERF_TIER_EVENT } from '@/lib/perf'
 
@@ -43,9 +43,10 @@ export default function App() {
   const panelRef = useRef<HTMLElement>(null)
 
   // The panel is the scroller, so a route change has to reset it by hand -
-  // the browser only restores scroll on the document.
+  // the browser only restores scroll on the document - and so does Lenis,
+  // which keeps its own copy of the position (see resetShellScroll).
   useEffect(() => {
-    panelRef.current?.scrollTo({ top: 0, behavior: 'auto' })
+    resetShellScroll()
   }, [pathname])
 
   // From the first route change on, a page that mounts rises into place

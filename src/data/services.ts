@@ -163,8 +163,8 @@ export const services: Service[] = [
     problem: 'Leads coming in with no system to capture, tag and follow up with them.',
     tools: ['GoHighLevel'],
     ideal: 'Service businesses and agencies running GHL.',
-    evidence: 'Supporting capability',
-    evidenceNote: 'Examples will be published as clearly labelled GoHighLevel demos or practice projects.',
+    evidence: 'Training',
+    evidenceNote: 'Certificate of Participation: 3-Hour Live GoHighLevel Workshop, Excelerate Digital Marketing. No GHL client implementation is documented yet; examples will be labelled as GoHighLevel demos or practice projects.',
     logos: [I.ghl],
   },
   {
@@ -176,7 +176,7 @@ export const services: Service[] = [
     tools: ['GoHighLevel', 'WordPress'],
     ideal: 'Campaigns that need a dedicated lead-capture path.',
     evidence: 'Supporting capability',
-    evidenceNote: 'No funnel project is documented yet. Future examples will be labelled Demo or Practice Project.',
+    evidenceNote: 'GHL funnel building is a supporting capability, backed by GoHighLevel workshop training. No funnel project is documented yet; future examples will be labelled Demo or Practice Project.',
   },
   {
     id: 'ai-automation',
@@ -240,13 +240,13 @@ export const services: Service[] = [
   {
     id: 'kajabi',
     tier: 'supporting',
-    title: 'Kajabi',
-    what: 'Additional platform: page edits and SEO settings for course and membership sites.',
-    problem: 'Kajabi pages missing basic on-page SEO.',
+    title: 'Kajabi — Blog and Content Publishing',
+    what: 'Publishing blog posts and content on Kajabi, formatted and optimized for search.',
+    problem: 'SEO content that needs to go live on a Kajabi site, correctly formatted.',
     tools: ['Kajabi'],
-    ideal: 'Course creators who need on-page SEO help.',
-    evidence: 'Needs verification',
-    evidenceNote: 'Listed on the resume only. Treated as an additional platform, not established experience.',
+    ideal: 'Businesses whose blog or site runs on Kajabi.',
+    evidence: 'Professional experience',
+    evidenceNote: 'Published blog posts and content on Kajabi for The Jamil Brothers Realty Group (2026). Course creation and Kajabi automations are not claimed.',
   },
 ]
 

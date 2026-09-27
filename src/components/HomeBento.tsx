@@ -76,7 +76,7 @@ export default function HomeBento() {
     <nav className="bento" aria-label="Explore the portfolio">
       {/* Projects: the Ahrefs evidence drifting upward on a looped track. */}
       <Link to="/projects" className="bento__card bento__card--projects">
-        <CardHead Icon={FolderOpen} title="Projects" desc="Wincrest Orthodontics: 224 → 1,705 monthly organic visits, plus six more dental SEO programs." />
+        <CardHead Icon={FolderOpen} title="Projects" desc="Wincrest Orthodontics: 224 → 1,705 monthly organic visits, plus 6 more dental clients." />
         <div className="bento__media bento__reel bento__reel--charts" aria-hidden="true">
           <div className="bento__reel-track">
             {[...PROJECT_SHOTS, ...PROJECT_SHOTS].map((s, i) => (
@@ -93,7 +93,7 @@ export default function HomeBento() {
         <CardHead Icon={User} title="About" desc="SEO specialist with a programming background. 3+ years, remote from Cebu." />
         <div className="bento__media bento__fan" aria-hidden="true">
           {PHOTOS.map((src, i) => (
-            <span key={src} className="bento__photo" style={{ ['--i' as string]: i }}>
+            <span key={src} className={`bento__photo${i ? ' bento__photo--cert' : ''}`} style={{ ['--i' as string]: i }}>
               <img src={src} alt="" loading="lazy" decoding="async" />
             </span>
           ))}
@@ -121,7 +121,7 @@ export default function HomeBento() {
 
       {/* Credentials: the certificate count on its plate. */}
       <Link to="/about#credentials" className="bento__card bento__card--creds">
-        <CardHead Icon={Medal} title="Credentials" desc="Pinoy SEO, SEO Workout, Margin & Momentum, plus ads training." />
+        <CardHead Icon={Medal} title="Credentials" desc="SEO, GoHighLevel, ads and VA training." />
         <div className="bento__media bento__badge" aria-hidden="true">
           <span className="bento__badge-ring bento__badge-ring--count">
             <b>{certifications.length}</b>

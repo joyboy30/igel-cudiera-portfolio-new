@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { SealCheck, CaretRight, Stack, Question, Quotes, ChartLineUp } from '@/components/slab'
+import { SealCheck, CaretRight, Stack, Question, Quotes, ChartLineUp, EnvelopeSimple, WhatsappLogo, LinkedinLogo, GithubLogo } from '@/components/slab'
 import { profile } from '@/data/profile'
 import { wincrest } from '@/data/projects'
+import { certifications } from '@/data/about'
 import QuickMenu from './QuickMenu'
 
 /**
@@ -14,20 +15,40 @@ import QuickMenu from './QuickMenu'
  *                result as a proof card
  */
 
+const CONTACTS = [
+  { label: 'Email', href: `mailto:${profile.email}`, Icon: EnvelopeSimple, external: false },
+  { label: 'WhatsApp', href: profile.whatsapp, Icon: WhatsappLogo, external: true },
+  { label: 'LinkedIn', href: profile.linkedin, Icon: LinkedinLogo, external: true },
+  { label: 'GitHub', href: profile.github, Icon: GithubLogo, external: true },
+]
+
 export function HomeProfile() {
   return (
-    <header className="hprofile">
-      <img className="hprofile__avatar" src={profile.avatarSrc} alt="" width={56} height={56} />
+    <header className="hprofile hprofile--center">
+      <QuickMenu className="hprofile__menu" />
+      <img className="hprofile__avatar" src={profile.avatarSrc} alt={profile.name} width={96} height={96} />
       <div className="hprofile__who">
         <span className="hprofile__name">
           {profile.name}
           <SealCheck size={16} weight="fill" className="hprofile__verified" aria-label={profile.verifiedLabel} />
         </span>
-        <span className="hprofile__handle">
-          {profile.handle} · {profile.role}
-        </span>
+        <span className="hprofile__handle">{profile.handle}</span>
+        <span className="hprofile__role">{profile.role}</span>
       </div>
-      <QuickMenu className="hprofile__menu" />
+      <ul className="hprofile__contacts" role="list">
+        {CONTACTS.map(({ label, href, Icon, external }) => (
+          <li key={label}>
+            <a
+              className="hprofile__contact"
+              href={href}
+              aria-label={label}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <Icon size={20} weight="fill" aria-hidden="true" />
+            </a>
+          </li>
+        ))}
+      </ul>
     </header>
   )
 }
@@ -49,7 +70,7 @@ export function HomeStats() {
 const TILES = [
   { n: '01', label: 'Projects', to: '/projects', title: 'SEO results with the receipts', desc: 'Ahrefs screenshots, dental programs and AI-search citations.', img: wincrest.shots[0].thumb },
   { n: '02', label: 'Services', to: '/services', title: 'SEO & web development first', desc: 'Plus GHL funnels, AI automation, ads, social and email.', Icon: Stack },
-  { n: '03', label: 'About', to: '/about', title: `Hi, I'm ${profile.firstName}.`, desc: 'Four SEO roles, six certificates, one programming background.', img: profile.hero.portraitSrc },
+  { n: '03', label: 'About', to: '/about', title: `Hi, I'm ${profile.firstName}.`, desc: `Four SEO roles, ${certifications.length} certificates, one programming background.`, img: profile.hero.portraitSrc },
   { n: '04', label: 'FAQs', to: '/faqs', title: 'Straight answers', desc: 'Arrangements, pricing, SEO, AI search and platforms.', Icon: Question, accent: true },
   { n: '05', label: 'Testimonials', to: '/testimonials', title: 'Verified feedback only', desc: 'Client testimonials are added as they are verified.', Icon: Quotes },
 ] as const

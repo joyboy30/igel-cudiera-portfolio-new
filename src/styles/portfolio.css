@@ -38,10 +38,14 @@
    intro's flying copy (.boot__title) must match it exactly - same size, same
    wrapping - or the hand-off jumps. */
 .home__title,
-.boot__title { font-size: clamp(28px, 2.55vw, 54px); }
+.boot__title { font-size: clamp(26px, 2.3vw, 44px); line-height: 1.12; }
 @media (min-width: 1100px) {
-  .home__line { white-space: normal; max-width: 24ch; }
+  .home__line { white-space: normal; max-width: 30ch; }
   .boot__title { white-space: normal; }
+}
+@media (max-width: 1099px) {
+  .home__title,
+  .boot__title { font-size: clamp(24px, 6.4vw, 34px); }
 }
 .home__ctas { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; align-items: stretch; }
 .home__ctas--phone { flex-direction: row; flex-wrap: wrap; margin-top: 14px; }
@@ -115,12 +119,74 @@
   .bento--projects [data-id='wincrest'] { grid-column: 1 / -1; }
 }
 
+/* Home Credentials card: the count on a true circle.
+   The media slot is a flex item whose height is whatever the card has left,
+   so the badge becomes a size container and the ring is sized from it: a
+   square box (aspect-ratio 1, height auto) no wider than the slot is tall,
+   minus the tag, the gap and the ring's 6px halo on both sides. flex: none
+   stops the column from squeezing its height into an oval. */
+.bento__card--creds .bento__badge {
+  container-type: size;
+  gap: 10px;
+  padding-block: 6px;
+}
+.bento__badge-ring--count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  /* Stacked: the slot height, less the tag (26), the gap (10), the halo (12)
+     and the slot padding (12). */
+  width: max(44px, min(clamp(76px, 6.4vw, 104px), calc(100cqh - 60px)));
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+/* A short slot puts the tag beside the ring instead of under it, so the ring
+   keeps its size rather than shrinking to fit a stack. */
+@container (max-height: 130px) {
+  .bento__card--creds .bento__badge { flex-direction: row; gap: 14px; }
+  .bento__badge-ring--count { width: max(44px, min(clamp(76px, 6.4vw, 104px), calc(100cqh - 24px))); }
+}
 .bento__badge-ring--count b {
-  font-size: 30px;
+  font-size: clamp(18px, 12cqh, 30px);
   font-weight: 800;
+  line-height: 1;
   letter-spacing: -0.03em;
   color: var(--navy);
 }
+.bento__card--creds .bento__badge-tag { flex: none; }
+
+/* Home About card: the fanned portrait and certificates, sized from the slot
+   (a size container) instead of the viewport width, so the hand never runs
+   past the card's clipped edge. Certificates keep their own landscape
+   proportions and show whole (contain), on white - no crop. */
+.bento__card--about .bento__fan { container-type: size; }
+
+/* Desktop Home: the bento rows keep enough height for their media. Where the
+   viewport is tall enough nothing changes - Home stays one fixed screen; on
+   a short one the page may scroll a little instead of crushing the cards. */
+@media (min-width: 1100px) {
+  /* The showcase row never drops below two ~215px card rows (plus the
+     sheet's padding and gap); Home's own height is the panel's, or its
+     min-content when that minimum no longer fits. */
+  /* The tools row is max-content: the shared glass style lets plates shrink
+     to 0, and an auto row gave the band 20px on short screens, so its label
+     spilled over the bento below. */
+  .home { grid-template-rows: auto max-content minmax(484px, 1fr); min-height: min-content; }
+  .shell__panel[data-fixed='true']:has(> .home) { overflow-y: auto; overflow-x: hidden; }
+}
+.bento__card--about .bento__photo {
+  width: min(96px, 34cqw, calc(80cqh * 3 / 4));
+  height: auto;
+}
+.bento__card--about .bento__photo--cert {
+  width: min(128px, 58cqw, calc(58cqh * 1600 / 1131));
+  aspect-ratio: 1600 / 1131;
+  background: #fff;
+}
+.bento__card--about .bento__photo--cert img { object-fit: contain; object-position: center; }
 
 .bento__doc--metric { justify-content: center; }
 .bento__doc-big {
@@ -763,3 +829,80 @@ a.agrid__cell { color: inherit; text-decoration: none; }
 }
 :root[data-a11y-motion] .home__avail-dot,
 :root[data-a11y-motion] .tabbar__sheet { animation: none; }
+
+/* ---------- Phone / tablet Home: centered profile header ----------
+   Photo, name, title and contact routes stacked on the centre line; the
+   QuickMenu (theme + accessibility) keeps its corner. Clean photo edges: a
+   circle crop and a hairline, no fade or glow. */
+@media (max-width: 1099px) {
+  .hprofile--center {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-top: 6px;
+    text-align: center;
+  }
+  .hprofile--center .hprofile__menu { position: absolute; top: 0; right: 0; margin: 0; }
+  .hprofile--center .hprofile__avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    background: none;
+    box-shadow: 0 0 0 1px var(--line-strong);
+  }
+  .hprofile--center .hprofile__who { align-items: center; gap: 2px; max-width: 100%; }
+  .hprofile--center .hprofile__name { justify-content: center; font-size: 19px; }
+  .hprofile--center .hprofile__handle { margin-top: 2px; font-size: 13.5px; font-weight: 600; color: var(--navy); }
+  .hprofile__role { font-size: 12.5px; color: var(--muted); }
+  .hprofile__contacts {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 2px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .hprofile__contact {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--navy);
+    background: var(--paper);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+  }
+  .hprofile__contact svg { color: var(--orange-ink); }
+  .hprofile__contact:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+}
+
+/* ---------- About: headline clearance ----------
+   The whole head (eyebrow + "Hi, I'm Igel.") sits clear of the top edge on
+   desktop and below the floating QuickMenu (top 14px, 44px tall) on phones. */
+.pgrid.agrid--flow { padding-top: clamp(40px, 7vh, 80px); }
+.pgrid.agrid--flow .pgrid__title { padding-top: 0.06em; }
+@media (max-width: 1099px) {
+  .pgrid.agrid--flow { padding-top: calc(76px + env(safe-area-inset-top, 0px)); }
+}
+
+/* Certificates supplied as PDFs: the original opens in the browser's viewer. */
+.certs__pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--navy);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+.certs__pdf svg { color: var(--orange-ink); }
+.certs__pdf:hover { box-shadow: inset 0 0 0 1px var(--orange); }
+.certs__pdf:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }

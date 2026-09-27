@@ -32,31 +32,19 @@
     display: block;
     width: clamp(132px, 21vh, 190px);
     aspect-ratio: 1;
-    /* The full cutout figure, no crop and no disc: it sits straight on the
-       page the way About seats it, with only a soft orange glow behind. */
-  }
-  .rail__avatar::before {
-    content: '';
-    position: absolute;
-    inset: 18% 4% 0;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at 50% 70%, rgba(255, 122, 26, 0.32), transparent 66%);
-    filter: blur(22px);
-    pointer-events: none;
+    /* A real photo, not a transparent cutout: shown whole, with clean edges.
+       (The template faded a cutout's edges into the page with a radial mask,
+       a blurred glow and a drop shadow - on a rectangular photo that read as
+       a white feather, so all three are gone.) */
   }
   .rail__avatar img {
     position: relative;
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
-    filter: drop-shadow(0 14px 22px rgba(6, 12, 26, 0.35));
-    /* The cutout ends in a flat line across the tee. One ellipse anchored
-       high dissolves the bottom edge and both shoulders into the page while
-       the head stays fully opaque - the same fade About uses. */
-    -webkit-mask-image: radial-gradient(ellipse 80% 86% at 50% 24%, #000 50%, transparent 100%);
-    mask-image: radial-gradient(ellipse 80% 86% at 50% 24%, #000 50%, transparent 100%);
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 22px;
   }
 
   .rail__name {

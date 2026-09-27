@@ -29,6 +29,26 @@ export function getScroller(): HTMLElement | null {
  * ~80KB of scroll-engine JS is code-split out and NEVER fetched on touch
  * devices, which use native momentum scroll instead.
  */
+/** The running instance, so a route change can reset it (resetShellScroll). */
+type LenisLike = { resize: () => void; scrollTo: (t: number, o?: { immediate?: boolean; force?: boolean }) => void }
+let active: LenisLike | null = null
+
+/**
+ * Put the scroller back at the top after a route change. The panel (desktop)
+ * or the document (phones) is reset natively, and Lenis - which keeps its own
+ * scroll position and page height - is told too. Without that, Lenis carried
+ * the previous page's position and height into the next one: a new page could
+ * be scrolled past its own heading, or refuse to scroll at all.
+ */
+export function resetShellScroll() {
+  getScroller()?.scrollTo({ top: 0, behavior: 'auto' })
+  window.scrollTo({ top: 0, behavior: 'auto' })
+  if (active) {
+    active.resize()
+    active.scrollTo(0, { immediate: true, force: true })
+  }
+}
+
 export function useLenis() {
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -75,7 +95,9 @@ export function useLenis() {
       const content = panel?.firstElementChild as HTMLElement | undefined
 
       const lenis = new Lenis({
-        ...(usesPanel && content ? { wrapper: panel, content } : {}),
+        // Bind to the panel even when the lazy route has not rendered yet;
+        // falling back to the window left the panel unscrollable by wheel.
+        ...(usesPanel && panel ? { wrapper: panel, content: content ?? panel } : {}),
         // Shorter duration + steeper exponential easing makes the wheel feel
         // responsive instead of heavy. 1.1s read as "the page is sluggish".
         // 0.9s with a steeper curve still smooths native step jumps but
@@ -89,6 +111,35 @@ export function useLenis() {
 
       // Hand every Lenis scroll update to ScrollTrigger.
       lenis.on('scroll', ScrollTrigger.update)
+      active = lenis
+
+      // Each route swaps the panel's content element, and Lenis only watches
+      // the one it started with. Re-measure whenever the content is replaced
+      // or changes size (lazy routes, accordions, images loading).
+      const sizeWatch = new ResizeObserver(() => lenis.resize())
+      const watchContent = () => {
+        sizeWatch.disconnect()
+        const el = panel?.firstElementChild
+        if (el) sizeWatch.observe(el)
+        lenis.resize()
+      }
+      // A swapped child means a new route has rendered. Lazy routes arrive
+      // after App's route-change reset, and a smooth scroll still running from
+      // the last page would otherwise carry on into this one - the new page
+      // opened scrolled past its own heading. Start it at the top. (A hash
+      // target, like /about#credentials, scrolls later, in the page's own
+      // effect, so it still wins.)
+      const swapWatch = panel
+        ? new MutationObserver(() => {
+            watchContent()
+            lenis.scrollTo(0, { immediate: true, force: true })
+            panel.scrollTop = 0
+          })
+        : null
+      if (panel && swapWatch) {
+        swapWatch.observe(panel, { childList: true })
+        watchContent()
+      }
 
       // Drive Lenis from GSAP's ticker so RAF stays unified.
       const tick = (time: number) => {
@@ -127,6 +178,9 @@ export function useLenis() {
       cleanup = () => {
         document.removeEventListener('click', onAnchorClick)
         gsap.ticker.remove(tick)
+        swapWatch?.disconnect()
+        sizeWatch.disconnect()
+        if (active === lenis) active = null
         lenis.destroy()
       }
     })()

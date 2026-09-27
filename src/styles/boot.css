@@ -239,6 +239,7 @@ html.is-intro-head .home__title { opacity: 0; }
 
 html.is-intro .home__cta,
 html.is-intro .home__lede,
+html.is-intro .home__avail,
 html.is-intro .home__glass,
 html.is-intro .nav,
 html.is-intro .hprofile,
@@ -255,6 +256,7 @@ html.is-intro .tabbar { transform: translateY(24px); }
 
 .home__cta,
 .home__lede,
+.home__avail,
 .home__glass,
 .nav,
 .hprofile,
@@ -268,6 +270,7 @@ html.is-intro .tabbar { transform: translateY(24px); }
     transform 760ms var(--ease-out);
 }
 .home__lede { transition-delay: 60ms; }
+.home__avail { transition-delay: 100ms; }
 .home__glass { transition-delay: 150ms; }
 .hstats { transition-delay: 100ms; }
 .hsec, .htiles, .hproof { transition-delay: 220ms; }
@@ -302,6 +305,7 @@ html.is-intro .rail__inner > * {
   html.is-intro-head .home__title,
   html.is-intro .home__cta,
   html.is-intro .home__lede,
+  html.is-intro .home__avail,
   html.is-intro .home__glass,
   html.is-intro .nav,
     html.is-intro .hprofile,

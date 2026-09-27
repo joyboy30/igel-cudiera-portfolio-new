@@ -90,7 +90,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
       },
       {
         q: 'Do you work with Elementor, Lofty, Shopify, Duda or Kajabi?',
-        a: 'These are platforms I list as tools. WordPress is where my documented build work is. For Elementor, Lofty, Shopify, Duda and Kajabi I will add examples to the showcase as they are verified, and I will tell you honestly how much I have done on a platform before you hire me for it.',
+        a: 'WordPress is where my documented build work is. On Kajabi, I published blog posts and content for The Jamil Brothers Realty Group. Elementor, Lofty, Shopify and Duda are platforms I list as tools; I will add examples to the showcase as they are verified, and I will tell you honestly how much I have done on a platform before you hire me for it.',
       },
       {
         q: 'Can you speed up my existing site?',
@@ -104,7 +104,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
     items: [
       {
         q: 'Do you build GoHighLevel funnels and automations?',
-        a: 'GoHighLevel funnels and automations are services I offer and am actively building. I do not have documented GHL client work yet, so examples I publish will be labelled as GoHighLevel demos or practice projects until client work is verified.',
+        a: 'GoHighLevel funnels and automations are services I offer and am actively building. I completed a 3-hour live GoHighLevel workshop (Excelerate Digital Marketing), but I do not have documented GHL client work yet, so examples I publish will be labelled as GoHighLevel demos or practice projects until client work is verified.',
       },
       {
         q: 'What does AI automation mean in your work?',
