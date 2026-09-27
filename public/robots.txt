@@ -1,0 +1,6 @@
+# This portfolio is public but intentionally kept out of search results.
+# Crawling is allowed on purpose: the noindex directive lives in each page's
+# <meta name="robots"> tag and in the X-Robots-Tag response header, and a
+# crawler that is disallowed here could never read either of them.
+User-agent: *
+Allow: /
