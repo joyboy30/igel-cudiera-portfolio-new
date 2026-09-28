@@ -90,7 +90,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
       },
       {
         q: 'Do you work with Elementor, Lofty, Shopify, Duda or Kajabi?',
-        a: 'WordPress is where my documented build work is. On Kajabi, I published blog posts and content for The Jamil Brothers Realty Group. Elementor, Lofty, Shopify and Duda are platforms I list as tools; I will add examples to the showcase as they are verified, and I will tell you honestly how much I have done on a platform before you hire me for it.',
+        a: 'WordPress is where my documented build work is. For The Jamil Brothers Realty Group I handled Lofty CMS and SEO content management and published blog posts and content on Kajabi. Elementor, Shopify and Duda are platforms I list as tools; I will add examples to the showcase as they are verified, and I will tell you honestly how much I have done on a platform before you hire me for it.',
       },
       {
         q: 'Can you speed up my existing site?',

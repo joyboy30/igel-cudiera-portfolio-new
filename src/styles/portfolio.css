@@ -392,6 +392,11 @@
 .cs__fact { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; box-shadow: 0 0 0 0.5px var(--line); }
 .cs__fact dt { font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .cs__fact dd { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.45; }
+/* Live site links: the global reset strips link colour, so these get the accent back. */
+.cs__urls { display: flex; flex-direction: column; gap: 2px; }
+.cs__url { display: inline-flex; align-items: center; gap: 4px; color: var(--orange-ink); overflow-wrap: anywhere; }
+.cs__url:hover { text-decoration: underline; }
+.cs__url:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 4px; }
 
 .cs__block { display: flex; flex-direction: column; gap: 12px; }
 .cs__block h3 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }

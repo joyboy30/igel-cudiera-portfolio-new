@@ -132,7 +132,7 @@ const PROJECTS: Project[] = [
     id: 'results',
     cat: 'seo',
     title: 'SEO results, with the screenshots',
-    desc: `${allShots.length} Ahrefs screenshots across 12 dental practices. Open any one full size.`,
+    desc: `${allShots.length} Ahrefs screenshots across 12 dental practices, plus a Search Console report for Birthing Center NYC.`,
     evidence: 'Client work',
     Icon: ChartLineUp,
     Section: EvidencePanel,

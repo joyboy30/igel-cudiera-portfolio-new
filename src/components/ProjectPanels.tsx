@@ -8,12 +8,14 @@ import {
   wincrest,
   dentalRows,
   dentalOverviews,
+  birthingCenter,
   growthOf,
   aiCases,
   industryCases,
   webBuilds,
   type AICase,
   type IndustryCase,
+  type LiveLink,
 } from '@/data/projects'
 import { showcase, plannedCategories, categoryColors } from '@/data/showcase'
 import { NEEDS_VERIFICATION } from '@/data/evidence'
@@ -74,6 +76,24 @@ function List({ items }: { items: string[] }) {
 
 const noUrl = <span className="cs__nv">Not published {NEEDS_VERIFICATION}</span>
 
+/** Live site links for the facts grid; the "not published" marker when there are none. */
+function LiveLinks({ links }: { links: LiveLink[] }) {
+  if (!links.length) return noUrl
+  return (
+    <span className="cs__urls">
+      {links.map((l) => (
+        <a key={l.url} className="cs__url" href={l.url} target="_blank" rel="noopener noreferrer">
+          {l.label}
+          <ArrowUpRight size={12} weight="bold" aria-hidden="true" />
+        </a>
+      ))}
+    </span>
+  )
+}
+
+/** Marks a fact amber when it still carries the NEEDS_VERIFICATION marker. */
+const fact = (v: string) => <span className={v.includes(NEEDS_VERIFICATION) ? 'cs__nv' : undefined}>{v}</span>
+
 /* ---------- Wincrest ---------- */
 
 export function WincrestPanel() {
@@ -99,9 +119,9 @@ export function WincrestPanel() {
         rows={[
           ['Industry', w.industry],
           ['My role', w.role],
-          ['Platform', <span className="cs__nv">{w.platform}</span>],
-          ['Timeline', <span className="cs__nv">{w.engagement}</span>],
-          ['Live URL', noUrl],
+          ['Platform', fact(w.platform)],
+          ['Timeline', fact(w.engagement)],
+          ['Live URL', <LiveLinks links={w.liveUrl ? [{ label: 'wincrestorthodontics.com', url: w.liveUrl }] : []} />],
           ['Tools', w.tools.join(', ')],
         ]}
       />
@@ -125,14 +145,15 @@ export function WincrestPanel() {
 
 export function EvidencePanel() {
   return (
-    <SectionWindow label="SEO results · Ahrefs screenshots">
+    <SectionWindow label="SEO results · Ahrefs and Search Console screenshots">
       <header className="cs__head">
         <span className="cs__eyebrow">Evidence gallery</span>
         <h2 className="cs__title">Every result, with its screenshot</h2>
         <EvidenceTag level="Client work" />
       </header>
       <p className="cs__lede">
-        Ahrefs traffic screenshots for twelve dental practices. Open any image full size; use the arrow keys to step through a set.
+        Ahrefs traffic screenshots for twelve dental practices, and a Google Search Console report for Birthing Center NYC.
+        Open any image full size; use the arrow keys to step through a set.
       </p>
       <section className="cs__block">
         <h3>{wincrest.client}</h3>
@@ -145,6 +166,14 @@ export function EvidencePanel() {
       <section className="cs__block">
         <h3>Ahrefs overviews: five more practices</h3>
         <ShotGallery shots={dentalOverviews} />
+      </section>
+      <section className="cs__block">
+        <h3>
+          {birthingCenter.client}: {birthingCenter.source}
+        </h3>
+        <Facts rows={[['Period', birthingCenter.period], ...birthingCenter.totals]} />
+        <p className="cs__note">Totals as shown in the report for one 3-month window. No before/after growth is claimed.</p>
+        <ShotGallery shots={[birthingCenter.shot]} className="shots--wide" />
       </section>
     </SectionWindow>
   )
@@ -278,9 +307,9 @@ function IndustryPanel({ ic }: { ic: IndustryCase }) {
         rows={[
           ['Client', ic.client],
           ['Industry', ic.industry],
-          ['My role', <span className={ic.role.includes(NEEDS_VERIFICATION) ? 'cs__nv' : undefined}>{ic.role}</span>],
-          ['Platform', <span className={ic.platform.includes(NEEDS_VERIFICATION) ? 'cs__nv' : undefined}>{ic.platform}</span>],
-          ['Live URL', ic.liveUrl ?? noUrl],
+          ['My role', fact(ic.role)],
+          ['Platform', fact(ic.platform)],
+          ['Live URL', <LiveLinks links={ic.liveUrls} />],
           ...(ic.tools.length ? ([['Tools', ic.tools.join(', ')]] as [string, ReactNode][]) : []),
         ]}
       />
@@ -291,6 +320,7 @@ function IndustryPanel({ ic }: { ic: IndustryCase }) {
       <section className="cs__block">
         <h3>Results</h3>
         <List items={ic.results} />
+        {ic.resultsNote && <p className="cs__note">{ic.resultsNote}</p>}
       </section>
       {cases.map((c) => (
         <QueryCase key={c.id} c={c} />

@@ -1,47 +1,41 @@
 import { Link } from 'react-router-dom'
-import { Quotes, SealCheck, IdentificationCard, ChatCircleText, ArrowUpRight, ChartLineUp } from '@/components/slab'
-import type { Icon } from '@/components/slab'
+import { Quotes, ArrowUpRight, ChartLineUp } from '@/components/slab'
 import { wincrest } from '@/data/projects'
 import { usePageMeta } from '@/hooks/usePageMeta'
 
 /**
  * TestimonialsGrid - the Testimonials view as a fixed viewport.
  *
- * There are no verified testimonials yet, so this page is an honest empty
- * state in the template's two-column layout: a quote plate on the left, and on
- * the right the standard every testimonial here will meet before it is
- * published. No quote, name or logo on this page is invented.
+ * The template's two-column layout: a plate on the left that says how these
+ * quotes are published, and on the right the ledger of client quotes.
  *
- * To add a testimonial later: replace the plate with the client's words (or a
- * video in public/testimonials/), their name, role and company - with their
- * written permission.
+ * Each quote is the client's own words, lightly edited for grammar and
+ * readability only. Names are shown as given - no job title, company, date,
+ * rating or photo is added that the client did not provide.
  */
 
-type Rule = { index: string; title: string; body: string; Icon: Icon }
+type Testimonial = { index: string; name: string; quote: string }
 
-const RULES: Rule[] = [
+const TESTIMONIALS: Testimonial[] = [
   {
     index: '01',
-    title: 'Real clients only',
-    body: 'Every testimonial comes from a client I have worked for, in their own words.',
-    Icon: SealCheck,
+    name: 'Saad Jamil',
+    quote: 'Thank you for your contributions. I’m happy with your hard work and dedication to my team.',
   },
   {
     index: '02',
-    title: 'Named, with permission',
-    body: 'Published with the person’s name, role and company, and only with their written consent.',
-    Icon: IdentificationCard,
+    name: 'Ivy',
+    quote: 'Thank you. Your efforts mean a lot to my business and have helped me a lot in getting more sales.',
   },
   {
     index: '03',
-    title: 'Matched to the work',
-    body: 'Each one links to the project or service it describes, so it can be checked against the results.',
-    Icon: ChatCircleText,
+    name: 'Mendy Perlman',
+    quote: 'I just looked at the Holistic Midwifery site, and the design updates look great—super clean!',
   },
 ]
 
 export default function TestimonialsGrid() {
-  usePageMeta('Testimonials', 'Client testimonials will be added as verified feedback becomes available.')
+  usePageMeta('Testimonials', 'What previous clients have said about working with Igel Cudiera, in their own words.')
   return (
     <section className="pgrid tgrid" aria-labelledby="testimonials-title">
       <header className="pgrid__head">
@@ -50,8 +44,7 @@ export default function TestimonialsGrid() {
           Verified feedback only.
         </h1>
         <p className="pgrid__lede">
-          Client testimonials will be added as verified feedback becomes available. Until then, the results speak through
-          the screenshots on the Projects page.
+          What previous clients have said, in their own words. The results behind the work are on the Projects page.
         </p>
       </header>
 
@@ -59,9 +52,10 @@ export default function TestimonialsGrid() {
         <div className="tgrid__reel">
           <div className="tgrid__stage tempty">
             <Quotes className="tempty__mark" size={56} weight="fill" aria-hidden="true" />
-            <p className="tempty__title">Client testimonials will be added as verified feedback becomes available.</p>
+            <p className="tempty__title">From clients I have worked for.</p>
             <p className="tempty__body">
-              No quotes are shown here until they are real, attributed and approved by the client.
+              Each quote is the client’s own words, lightly edited for grammar and readability. Nothing is added to what
+              they said.
             </p>
             <div className="tempty__actions">
               <Link className="home__cta" to="/projects">
@@ -87,23 +81,23 @@ export default function TestimonialsGrid() {
 
         <div className="tgrid__ledger">
           <div className="tgrid__ledger-head">
-            <h2 className="tgrid__ledger-title">What every testimonial here will meet</h2>
-            <p className="tgrid__ledger-sub">The standard, set before the first one is published.</p>
+            <h2 className="tgrid__ledger-title">What clients said</h2>
+            <p className="tgrid__ledger-sub">Lightly edited for grammar; meaning and voice unchanged.</p>
           </div>
 
           <ul className="tgrid__clients" role="list">
-            {RULES.map((r) => (
-              <li key={r.index} className="tgrid__client">
-                <span className="tgrid__client-ghost" aria-hidden="true">{r.index}</span>
+            {TESTIMONIALS.map((t) => (
+              <li key={t.index} className="tgrid__client">
+                <span className="tgrid__client-ghost" aria-hidden="true">{t.index}</span>
                 <span className="tgrid__client-mark" aria-hidden="true">
-                  <r.Icon size={22} weight="duotone" />
+                  <Quotes size={22} weight="duotone" />
                 </span>
-                <span className="tgrid__client-body">
-                  <span className="tgrid__client-head">
-                    <span className="tgrid__client-name">{r.title}</span>
-                  </span>
-                  <span className="tgrid__client-daily">{r.body}</span>
-                </span>
+                <figure className="tgrid__client-body tgrid__quote">
+                  <blockquote className="tgrid__client-daily">
+                    <p>“{t.quote}”</p>
+                  </blockquote>
+                  <figcaption className="tgrid__client-name">{t.name}</figcaption>
+                </figure>
               </li>
             ))}
           </ul>

@@ -26,9 +26,10 @@ export const wincrest = {
   metric: { before: 224, after: 1705, unit: 'average monthly organic visits', source: 'Ahrefs' },
   growth: '+661%',
   role: 'SEO Specialist',
-  platform: `Website platform ${NEEDS_VERIFICATION}`,
-  engagement: `Engagement dates and employer context ${NEEDS_VERIFICATION}`,
-  liveUrl: null as string | null,
+  platform: 'WordPress',
+  /** Length of the engagement. No dates are attached to the traffic result. */
+  engagement: '2 years',
+  liveUrl: 'https://wincrestorthodontics.com/' as string | null,
   work: ['Keyword optimization', 'Guest-post link building'],
   workNote: `Work performed as recorded in the previous portfolio's dental SEO descriptions. Per-client scope ${NEEDS_VERIFICATION}.`,
   tools: ['Ahrefs'],
@@ -68,6 +69,29 @@ export const dentalOverviews: Shot[] = [
   shot('thedentalhealthpractice', 'The Dental Health Practice: Ahrefs overview'),
   shot('skyviewdental', 'Skyview Dental: Ahrefs overview'),
 ]
+
+/* ---------- Birthing Center NYC: Search Console ---------- */
+
+/** One Google Search Console performance report (3-month view, web search,
+ *  ending September 2026). The figures are the totals printed on that report;
+ *  no before/after comparison is claimed. Kept out of allShots, which counts
+ *  the Ahrefs screenshots only. */
+export const birthingCenter = {
+  client: 'Birthing Center NYC',
+  source: 'Google Search Console',
+  period: 'Last 3 months, web search (to September 2026)',
+  totals: [
+    ['Total clicks', '3.34K'],
+    ['Total impressions', '339K'],
+    ['Average CTR', '1%'],
+    ['Average position', '11.5'],
+  ] as [string, string][],
+  shot: {
+    src: encodeURI('/case-studies/birthing center nyc.webp'),
+    thumb: encodeURI('/case-studies/birthing center nyc.webp'),
+    label: 'Birthing Center NYC: Google Search Console performance, last 3 months (3.34K clicks, 339K impressions)',
+  } as Shot,
+}
 
 /** Every evidence screenshot, for the results strip. */
 export const allShots: Shot[] = [
@@ -178,6 +202,8 @@ export const aiQueryCount = aiCases.reduce((n, c) => n + c.aio.length, 0)
 
 /* ---------- Industry case studies (the build stack) ---------- */
 
+export type LiveLink = { label: string; url: string }
+
 export type IndustryCase = {
   id: string
   kicker: string
@@ -191,8 +217,11 @@ export type IndustryCase = {
   work: string[]
   tools: string[]
   results: string[]
+  /** How the results are backed, shown under them. */
+  resultsNote?: string
   caseIds: string[]
-  liveUrl: string | null
+  /** One link per site; a combined case lists each client's site. */
+  liveUrls: LiveLink[]
 }
 
 export const industryCases: IndustryCase[] = [
@@ -200,28 +229,36 @@ export const industryCases: IndustryCase[] = [
     id: 'real-estate',
     kicker: 'Real estate SEO',
     title: 'The Jamil Brothers Realty Group',
-    desc: 'Seller-intent content cited in Google AI Overviews for 9 county-level queries.',
+    desc: 'Reported Google Search clicks up from 6,000 to 11,000 in 3 months, plus 9 AI Overview citations.',
     evidence: 'Professional experience',
     client: 'The Jamil Brothers Realty Group',
     industry: 'Residential real estate · Northern Virginia',
     role: 'SEO Specialist (April – July 2026)',
-    platform: 'Kajabi (blog and content publishing)',
+    platform: 'Lofty',
     work: [
+      'Lofty CMS content management',
+      'Created and published new blog content regularly',
       'SEO blogs for home sellers, downsizing and home equity',
       'Re-optimized existing posts for heading hierarchy, semantic keywords and intent',
+      'Built topic clusters',
       'Resolved keyword cannibalization with consolidation and 301 redirects',
+      'Fixed duplicate content',
+      'Fixed technical website issues',
       'Fixed FAQ schema validation and structured data',
-      'Directories, Web 2.0 backlinks and outreach for topical authority',
-      'Audited and repaired broken internal links',
+      'Improved internal linking; audited and repaired broken internal links',
+      'CTA placement on blog content',
+      'Citation building, directories, Web 2.0 backlinks and outreach for topical authority',
       'Published blog posts and content on Kajabi',
     ],
-    tools: ['Kajabi', 'Google Rich Results Test'],
+    tools: ['Semrush', 'Lofty', 'Kajabi', 'Claude AI', 'ChatGPT', 'Gemini'],
     results: [
+      'Reported Google Search clicks increased from 6,000 to 11,000 in 3 months.',
       'Cited in Google AI Overviews for 8 seller-intent queries (plus 1 with ExploreVAHomes)',
       'Cited in ChatGPT answers for 7 of the same queries (plus 1 with ExploreVAHomes)',
     ],
+    resultsNote: 'The click figures are as reported; a Search Console screenshot for this result is not in the portfolio yet.',
     caseIds: ['jamil', 'explorevahomes'],
-    liveUrl: null,
+    liveUrls: [{ label: 'thejamilbrothers.com', url: 'https://www.thejamilbrothers.com/' }],
   },
   {
     id: 'brokerage',
@@ -231,13 +268,13 @@ export const industryCases: IndustryCase[] = [
     evidence: 'Client work',
     client: 'First Choice Business Brokers',
     industry: 'Business brokerage',
-    role: `SEO Specialist · engagement context ${NEEDS_VERIFICATION}`,
-    platform: `Website platform ${NEEDS_VERIFICATION}`,
+    role: 'SEO Specialist',
+    platform: 'Duda',
     work: ['Buyer-intent content', 'Long-tail keyword targeting', 'Location-specific optimization'],
-    tools: [],
+    tools: ['Ahrefs', 'Screaming Frog', 'Moz', 'Local Viking', 'Adsy', 'Arvow', 'ChatGPT', 'Gemini', 'Legiit', 'Google Business Profile'],
     results: ['Cited in Google AI Overviews for 5 location-based queries'],
     caseIds: ['first-choice'],
-    liveUrl: null,
+    liveUrls: [{ label: 'fcbb.com', url: 'https://fcbb.com/' }],
   },
   {
     id: 'local',
@@ -257,7 +294,11 @@ export const industryCases: IndustryCase[] = [
       'Fontana Di Vino: 3 queries in AI Overviews, 1 in ChatGPT',
     ],
     caseIds: ['brush-dental', 'pecan-jacks', 'fontana-di-vino'],
-    liveUrl: null,
+    liveUrls: [
+      { label: 'Brush Dental Studio · brushdentalstudio.com', url: 'https://www.brushdentalstudio.com/' },
+      { label: 'Pecan Jacks · pecanjacks.com', url: 'https://pecanjacks.com/' },
+      { label: 'Fontana Di Vino · fontanadivino.co', url: 'https://www.fontanadivino.co/' },
+    ],
   },
 ]
 

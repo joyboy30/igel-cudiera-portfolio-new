@@ -180,11 +180,12 @@ export const certifications: Certificate[] = [
     credentialId: 'VALS-001-0234',
   },
   {
-    // From public/certificates/gohighlevel-certificate.pdf. The certificate
-    // shows no date and no credential ID, so none are given here.
+    // From public/certificates/gohighlevel-certificate.pdf. The workshop date
+    // (September 2026) is confirmed by Igel; the certificate carries no
+    // credential ID, so none is given here.
     title: 'Certificate of Participation: 3-Hour Live GoHighLevel Workshop',
     issuer: 'Excelerate Digital Marketing',
-    date: 'Date not shown on certificate',
+    date: 'September 2026',
     image: '/certificates/gohighlevel-certificate.webp',
     thumb: '/certificates/gohighlevel-certificate-sm.webp',
     description: 'Participation in a 3-hour live GoHighLevel workshop.',
@@ -222,6 +223,7 @@ export const skillTiers: SkillTier[] = [
       'Schema markup',
       'WordPress website builds',
       'Kajabi blog & content publishing',
+      'Lofty CMS & SEO content management',
     ],
   },
   {
@@ -238,7 +240,6 @@ export const skillTiers: SkillTier[] = [
       'Email marketing',
       'Social media management',
       'Elementor',
-      'Lofty',
       'Shopify',
       'Duda',
     ],
