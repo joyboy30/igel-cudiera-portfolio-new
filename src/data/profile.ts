@@ -89,7 +89,7 @@ export const profile: Profile = {
   },
   engagements: ['Part-time', 'Project-based', 'Freelance', 'Contract', 'Monthly retainer', 'Long-term remote support'],
   availability: { mode: 'Part-time', hours: '4 hours/day', rate: '$9/hour', source: 'OnlineJobs.ph' },
-  resumeSrc: '/resume/Igel-Cudiera-Resume.pdf',
+  resumeSrc: '/resume/Igel%20Cudiera%20Resume.pdf',
   whatsapp: WHATSAPP,
   linkedin: LINKEDIN,
   github: GITHUB,
