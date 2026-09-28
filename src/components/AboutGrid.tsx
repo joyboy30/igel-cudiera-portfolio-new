@@ -49,7 +49,7 @@ export default function AboutGrid() {
         </h1>
         <p className="pgrid__lede">
           SEO specialist and WordPress developer in {profile.location}, working remotely with businesses in the US,
-          Canada and South Korea.
+          and Canada.
         </p>
       </header>
 
@@ -136,7 +136,7 @@ export default function AboutGrid() {
       <section className="home__glass about-sec" aria-labelledby="exp-title" id="experience">
         <header className="about-sec__head">
           <span className="pgrid__eyebrow">Experience</span>
-          <h2 id="exp-title" className="about-sec__title">Four SEO roles since 2023</h2>
+          <h2 id="exp-title" className="about-sec__title">4 SEO roles since 2023</h2>
         </header>
         <ol className="xp" role="list">
           {experience.map((r) => (

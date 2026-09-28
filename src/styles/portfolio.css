@@ -560,7 +560,17 @@
 /* ---------- About: the page scrolls ---------- */
 @media (min-width: 1100px) {
   .agrid--flow { height: auto; display: flex; flex-direction: column; }
-  .agrid--flow .agrid__glass { height: clamp(560px, 74vh, 760px); }
+  /* A floor, not a fixed height: when the copy needs more room than the
+     viewport-based size (short or narrow screens), the sheet grows with it
+     instead of the centred copy spilling out past both edges. */
+  .agrid--flow .agrid__glass {
+    height: auto;
+    min-height: clamp(560px, 74vh, 760px);
+    grid-template-rows: auto;
+  }
+  /* The photo fills whatever height the copy sets rather than adding its own
+     1100px intrinsic height to the row. */
+  .agrid--flow .agrid__portrait--photo img { position: absolute; inset: 0; }
 }
 .agrid__portrait--photo {
   margin: 0;
