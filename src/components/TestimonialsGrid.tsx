@@ -35,10 +35,7 @@ const TESTIMONIALS: Testimonial[] = [
 ]
 
 export default function TestimonialsGrid() {
-  usePageMeta(
-    'Client Testimonials & Verified Feedback | Igel G. Cudiera',
-    'Read verified client testimonials about SEO and web development work with Igel Cudiera, shared in their own words and lightly edited only for readability.',
-  )
+  usePageMeta('testimonials')
   return (
     <section className="pgrid tgrid" aria-labelledby="testimonials-title">
       <header className="pgrid__head">

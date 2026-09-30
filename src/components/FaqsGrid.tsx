@@ -12,10 +12,7 @@ import { usePageMeta } from '@/hooks/usePageMeta'
  * answer never clips.
  */
 export default function FaqsGrid() {
-  usePageMeta(
-    'SEO, Web Development & Hiring FAQs | Igel G. Cudiera',
-    'Straight answers before you hire: working arrangements, pricing, SEO, AI search, web development, GoHighLevel funnels, AI automation and paid ads questions.',
-  )
+  usePageMeta('faqs')
   const [open, setOpen] = useState<Set<string>>(() => new Set([`${FAQ_GROUPS[0].id}-0`]))
 
   const toggle = (key: string) =>

@@ -23,5 +23,5 @@
     { "source": "/blog", "destination": "/", "permanent": true },
     { "source": "/blog/:path*", "destination": "/", "permanent": true }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/404.html" }]
 }

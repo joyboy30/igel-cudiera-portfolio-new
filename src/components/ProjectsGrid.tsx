@@ -223,10 +223,7 @@ function ProjectModal({ project, onClose, children }: { project: Project; onClos
 /* ---------- The page ---------- */
 
 export default function ProjectsGrid() {
-  usePageMeta(
-    'SEO Projects & Case Studies | Igel G. Cudiera Portfolio',
-    'Documented SEO results with Ahrefs screenshots: Wincrest Orthodontics grew from 224 to 1,705 monthly organic visits, plus dental SEO and AI search citations.',
-  )
+  usePageMeta('projects')
   const [open, setOpen] = useState<Project | null>(null)
   const phone = useIsPhone()
   const [cat, setCat] = useState<Cat | 'all'>('all')

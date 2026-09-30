@@ -1,19 +1,17 @@
 import { useEffect } from 'react'
-
-// index.html carries Home's title and description. Read them once, before any
-// route's effect can overwrite them, so Home can put them back.
-const HOME_TITLE = document.title
-const HOME_DESCRIPTION = document.querySelector('meta[name="description"]')?.getAttribute('content') ?? ''
+import { PAGE_META, type PageKey } from '@/data/pageMeta'
 
 /**
- * Per-route title and description. The site is a client-rendered SPA with one
- * index.html, so each view sets its own tab title and description on mount.
- * Called with no arguments (Home), it restores the index.html values.
+ * Per-route title and description. Each route's HTML file is built with its
+ * own pair (see the route-meta plugin in vite.config.ts); this keeps them in
+ * step on client-side navigation by updating the one existing <title> and
+ * description tag in place, never adding a second.
  * (The site is noindex by design; this is for tabs, history and sharing.)
  */
-export function usePageMeta(title: string = HOME_TITLE, description: string = HOME_DESCRIPTION) {
+export function usePageMeta(page: PageKey) {
   useEffect(() => {
+    const { title, description } = PAGE_META[page]
     document.title = title
     document.querySelector('meta[name="description"]')?.setAttribute('content', description)
-  }, [title, description])
+  }, [page])
 }

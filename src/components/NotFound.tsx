@@ -5,10 +5,7 @@ import { usePageMeta } from '@/hooks/usePageMeta'
 
 export default function NotFound() {
   const navigate = useNavigate()
-  usePageMeta(
-    'Page Not Found | Igel G. Cudiera SEO & Web Development',
-    'This page does not exist on the portfolio. Head back to the home page or browse the about, projects, services, testimonials, FAQs and contact pages instead.',
-  )
+  usePageMeta('notFound')
 
   return (
     <main className="legal-page" aria-label="Page not found">
