@@ -31,7 +31,10 @@ export default function ContactGrid() {
   // Bumped on every failed submit so the shake replays even if the same
   // error is already showing.
   const [shake, setShake] = useState(0)
-  usePageMeta('Contact', 'Hire Igel for part-time, project-based, freelance, contract or monthly retainer SEO and web development work.')
+  usePageMeta(
+    'Contact Igel G. Cudiera | SEO & Web Development Projects',
+    'Contact Igel for part-time, project-based, freelance, contract or monthly retainer SEO and web development work. Expect a reply to your message within 24 hours.',
+  )
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

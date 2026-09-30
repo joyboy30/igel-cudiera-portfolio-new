@@ -29,7 +29,7 @@ import { usePageMeta } from '@/hooks/usePageMeta'
  */
 export default function Home() {
   useScrollReveal()
-  usePageMeta('')
+  usePageMeta()
   const phone = useIsPhone()
   const { displayName, hero, engagements } = profile
 

@@ -106,7 +106,10 @@ function TierBand({ tier }: { tier: Tier }) {
 }
 
 export default function ServicesGrid() {
-  usePageMeta('Services', 'SEO and web development, with specialist technical, on-page, local and AI search SEO, plus supporting GoHighLevel, automation, ads, social and email services.')
+  usePageMeta(
+    'Technical SEO & Web Development Services | Igel G. Cudiera',
+    'SEO and web development, with specialist technical, on-page, local and AI search SEO, plus supporting GoHighLevel, automation, ads, social and email services.',
+  )
   return (
     <section className="pgrid sgrid" aria-labelledby="services-title">
       <header className="pgrid__head">

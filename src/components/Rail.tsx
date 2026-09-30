@@ -54,10 +54,10 @@ export default function Rail() {
           />
         </span>
 
-        <h2 className="rail__name">
+        <p className="rail__name">
           {profile.name}
           <SealCheck size={19} weight="fill" aria-label={profile.verifiedLabel} />
-        </h2>
+        </p>
         <p className="rail__handle">
           {profile.handle}
         </p>

@@ -30,7 +30,10 @@ const CAPABILITIES: Capability[] = [
 const CERT_SHOTS = certifications.map((c) => ({ src: c.image, thumb: c.thumb, label: `${c.title} · ${c.issuer} · ${c.date}` }))
 
 export default function AboutGrid() {
-  usePageMeta('About', 'Igel G. Cudiera: SEO specialist and WordPress developer in Cebu, Philippines. Experience, certifications and skills.')
+  usePageMeta(
+    'About Igel G. Cudiera | SEO Specialist & Web Developer',
+    'Meet Igel G. Cudiera, an SEO specialist and WordPress developer. See four SEO roles since 2023, certificates and training, career timeline and core skills.',
+  )
   const { hash } = useLocation()
 
   // The panel is the scroller, so an in-page hash needs a manual scroll.
