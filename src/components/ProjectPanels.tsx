@@ -335,39 +335,67 @@ export const LocalPanel = () => <IndustryPanel ic={industryCases[2]} />
 
 /* ---------- Websites & funnels: the 3D carousel ---------- */
 
+/** What a category card says when it has no screenshot-backed item of its own. */
+function emptyNote(category: string) {
+  if (category === 'Practice project') {
+    const n = showcase.filter((s) => s.evidence === 'Practice project').length
+    return n ? `Every build in the carousel above (${n}) is a GoHighLevel practice project, not client work.` : null
+  }
+  if (category === 'Website') return 'No website with screenshots yet. The documented WordPress builds are listed below.'
+  return null
+}
+
 export function ShowcasePanel() {
   const { openItem, modal } = useShowcaseModal()
-
-  if (showcase.length > 0) {
-    return (
-      <div className="ppanel ppanel--barrel">
-        <Suspense fallback={<div className="funnels__barrel-skeleton" aria-hidden="true" />}>
-          <FunnelBarrel items={showcase} onOpen={openItem} />
-        </Suspense>
-        {modal}
-      </div>
-    )
-  }
+  const live = showcase.length > 0
 
   return (
     <SectionWindow label="Websites & funnels">
       <header className="cs__head">
         <span className="cs__eyebrow">3D showcase</span>
-        <h2 className="cs__title">Showcase coming soon</h2>
-        <EvidenceTag level="Needs verification" />
+        <h2 className="cs__title">{live ? 'GoHighLevel practice builds' : 'Showcase coming soon'}</h2>
+        <EvidenceTag level={live ? 'Practice project' : 'Needs verification'} />
       </header>
-      <p className="cs__lede">
-        This space is the 3D carousel for websites, landing pages, funnels and demos. It stays empty until each piece has
-        a real screenshot, demo file or live URL, so nothing here is a mock-up passed off as client work.
-      </p>
+      {live ? (
+        <p className="cs__lede">
+          A landing page, funnel steps, CRM pipelines and workflows I built in a GoHighLevel practice sub-account. These
+          are real screenshots of practice work, not client projects. Drag the reel, or open any build below.
+        </p>
+      ) : (
+        <p className="cs__lede">
+          This space is the 3D carousel for websites, landing pages, funnels and demos. It stays empty until each piece
+          has a real screenshot, demo file or live URL, so nothing here is a mock-up passed off as client work.
+        </p>
+      )}
+
+      {live && (
+        <Suspense fallback={<div className="funnels__barrel-skeleton" aria-hidden="true" />}>
+          <FunnelBarrel items={showcase} onOpen={openItem} />
+        </Suspense>
+      )}
 
       <ul className="soon" role="list">
-        {plannedCategories.map((p) => (
-          <li key={p.category} className="soon__item" style={{ ['--tag-color' as string]: p.category in categoryColors ? categoryColors[p.category as keyof typeof categoryColors] : 'var(--muted)' }}>
-            <span className="soon__tag">{p.category}</span>
-            <span className="soon__note">{p.note}</span>
-          </li>
-        ))}
+        {plannedCategories.map((p) => {
+          const items = showcase.filter((s) => s.category === p.category)
+          const note = items.length ? null : emptyNote(p.category)
+          return (
+            <li key={p.category} className="soon__item" data-filled={items.length > 0 || undefined} style={{ ['--tag-color' as string]: p.category in categoryColors ? categoryColors[p.category as keyof typeof categoryColors] : 'var(--muted)' }}>
+              <span className="soon__tag">{p.category}</span>
+              <span className="soon__note">{p.note}</span>
+              {items.map((s) => {
+                const cover = s.shots?.[0]
+                return (
+                  <button key={s.id} type="button" className="soon__build" onClick={(e) => openItem(s, e.currentTarget)}>
+                    {cover && <img src={cover.src} alt="" width={cover.width} height={cover.height} loading="lazy" decoding="async" />}
+                    <span className="soon__build-label">{s.label}</span>
+                    <EvidenceTag level={s.evidence} />
+                  </button>
+                )
+              })}
+              {note && <span className="soon__note">{note}</span>}
+            </li>
+          )
+        })}
       </ul>
 
       <section className="cs__block">
@@ -405,6 +433,7 @@ export function ShowcasePanel() {
         <Sparkle size={16} weight="duotone" aria-hidden="true" />
         Need a site or funnel built? <Link to="/contact">Start a project <ArrowUpRight size={13} weight="bold" aria-hidden="true" /></Link>
       </p>
+      {modal}
     </SectionWindow>
   )
 }

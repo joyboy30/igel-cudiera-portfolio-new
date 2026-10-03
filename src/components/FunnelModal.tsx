@@ -8,6 +8,7 @@ import type { ShowcaseItem } from '@/data/showcase'
  * The carousel's preview: a browser-chrome dialog for one showcase item.
  *
  *   demo   a local, self-contained page, iframed (same origin only)
+ *   shots  several screenshots, stacked in order with captions
  *   shot   a full-length screenshot, shown as an image
  *   url    a live site, linked out in a new tab - never framed, since most
  *          sites refuse to be embedded
@@ -87,6 +88,18 @@ export function useShowcaseModal() {
               title={item.label}
               sandbox="allow-same-origin allow-forms allow-scripts allow-popups"
             />
+          ) : item.shots?.length ? (
+            <div className="funnels__modal-shot">
+              <p className="funnels__modal-desc">
+                {item.platform} · {item.desc}
+              </p>
+              {item.shots.map((s, i) => (
+                <figure key={s.src} className="funnels__modal-figure">
+                  <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading={i ? 'lazy' : 'eager'} decoding="async" />
+                  {s.caption && <figcaption className="funnels__modal-desc">{s.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
           ) : (
             <div className="funnels__modal-shot">
               <img src={item.shot ?? item.thumb} alt={`${item.label} screenshot`} />

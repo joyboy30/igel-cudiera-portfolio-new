@@ -113,9 +113,20 @@ function QueriesPreview() {
   )
 }
 
-/** Coming-soon plates in the carousel's 3:4 card shape. */
+/** The carousel's first three 3:4 cards; coming-soon plates while it is empty. */
 function ShowcasePreview() {
-  const items = showcase.length ? showcase.slice(0, 3).map((s) => s.category) : ['Sites', 'Pages', 'Funnels']
+  if (showcase.length) {
+    return (
+      <div className="bento__media bento__fan" aria-hidden="true">
+        {showcase.slice(0, 3).map((s, i) => (
+          <span key={s.id} className="bento__photo bento__photo--page" style={{ ['--i' as string]: i }}>
+            <img src={s.thumb} alt="" width={1080} height={1440} loading="lazy" decoding="async" />
+          </span>
+        ))}
+      </div>
+    )
+  }
+  const items = ['Sites', 'Pages', 'Funnels']
   return (
     <div className="bento__media bento__fan" aria-hidden="true">
       {items.map((label, i) => (
@@ -154,9 +165,9 @@ const PROJECTS: Project[] = [
     cat: 'web',
     title: 'Websites & funnels',
     desc: showcase.length
-      ? 'Spin the 3D reel of sites, pages and demos.'
+      ? 'Spin the 3D reel of GoHighLevel practice builds: landing page, funnel, CRM and workflows. WordPress builds listed inside.'
       : 'The 3D showcase opens once real screenshots and URLs are in. WordPress builds listed inside.',
-    evidence: showcase.length ? 'Client work' : 'Needs verification',
+    evidence: showcase.length ? 'Practice project' : 'Needs verification',
     Icon: Globe,
     Section: ShowcasePanel,
     Preview: ShowcasePreview,

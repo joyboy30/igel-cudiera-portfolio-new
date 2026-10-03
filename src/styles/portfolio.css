@@ -481,6 +481,29 @@
   background: var(--tag-color, var(--muted));
 }
 .soon__note { font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+/* A category with real work: solid card, and each build opens the preview dialog. */
+.soon__item[data-filled] { background: var(--paper); }
+.soon__build {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 8px 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.soon__build:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--tag-color, var(--line-strong)), 0 12px 24px -16px rgba(11, 30, 63, 0.45); }
+.soon__build:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+.soon__build img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px var(--line); }
+.soon__build-label { font-size: 14px; font-weight: 600; line-height: 1.35; }
 .builds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 14px; }
 .builds__card {
   display: flex;
@@ -499,6 +522,8 @@
 .funnels__modal-shot { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--white); }
 .funnels__modal-shot img { display: block; width: 100%; height: auto; }
 .funnels__modal-desc { margin: 0; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+/* Multi-screenshot previews: never upscaled past a typical capture width. */
+.funnels__modal-figure { margin: 0 auto; max-width: 1920px; border-top: 1px solid var(--line); }
 .funnels__modal-actions { display: flex; align-items: center; gap: 8px; }
 
 /* ---------- Services ---------- */
