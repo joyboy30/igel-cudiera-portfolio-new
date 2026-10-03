@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Quotes, ArrowUpRight, ChartLineUp } from '@/components/slab'
 import { wincrest } from '@/data/projects'
 import { usePageMeta } from '@/hooks/usePageMeta'
+import { TESTIMONIALS } from '@/data/testimonials'
 
 /**
  * TestimonialsGrid - the Testimonials view as a fixed viewport.
@@ -9,30 +10,8 @@ import { usePageMeta } from '@/hooks/usePageMeta'
  * The template's two-column layout: a plate on the left that says how these
  * quotes are published, and on the right the ledger of client quotes.
  *
- * Each quote is the client's own words, lightly edited for grammar and
- * readability only. Names are shown as given - no job title, company, date,
- * rating or photo is added that the client did not provide.
+ * The quotes live in data/testimonials.ts, shared with the Home card.
  */
-
-type Testimonial = { index: string; name: string; quote: string }
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    index: '01',
-    name: 'Saad Jamil',
-    quote: 'Thank you for your contributions. I’m happy with your hard work and dedication to my team.',
-  },
-  {
-    index: '02',
-    name: 'Ivy',
-    quote: 'Thank you. Your efforts mean a lot to my business and have helped me a lot in getting more sales.',
-  },
-  {
-    index: '03',
-    name: 'Mendy Perlman',
-    quote: 'I just looked at the Holistic Midwifery site, and the design updates look great—super clean!',
-  },
-]
 
 export default function TestimonialsGrid() {
   usePageMeta('testimonials')

@@ -387,6 +387,8 @@
 .bento__review-top svg { color: var(--orange); }
 .bento__review-role { font-size: 11.5px; line-height: 1.4; color: var(--muted); }
 .bento__review-work { font-size: 11px; font-weight: 600; color: var(--orange-ink); }
+/* Quotes are a figure + blockquote; drop the UA margins. */
+.bento__review, .bento__review blockquote { margin: 0; }
 
 /* Below the shell breakpoint the grid has no fixed rows, so the tracks would
    set the card height. Cap the media instead, and let the two wide cards

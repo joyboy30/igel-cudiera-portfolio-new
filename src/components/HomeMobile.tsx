@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
-import { SealCheck, CaretRight, Stack, Question, Quotes, ChartLineUp, EnvelopeSimple, WhatsappLogo, LinkedinLogo, GithubLogo } from '@/components/slab'
+import { SealCheck, CaretRight, Stack, Quotes, ChartLineUp, EnvelopeSimple, WhatsappLogo, LinkedinLogo, GithubLogo } from '@/components/slab'
 import { profile } from '@/data/profile'
 import { wincrest } from '@/data/projects'
 import { certifications } from '@/data/about'
+import { TESTIMONIALS } from '@/data/testimonials'
 import QuickMenu from './QuickMenu'
 
 /**
@@ -71,8 +72,7 @@ const TILES = [
   { n: '01', label: 'Projects', to: '/projects', title: 'SEO results with the receipts', desc: 'Ahrefs screenshots, dental programs and AI-search citations.', img: wincrest.shots[0].thumb },
   { n: '02', label: 'Services', to: '/services', title: 'SEO & web development first', desc: 'Plus GHL funnels, AI automation, ads, social and email.', Icon: Stack },
   { n: '03', label: 'About', to: '/about', title: `Hi, I'm ${profile.firstName}.`, desc: `Four SEO roles, ${certifications.length} certificates, one programming background.`, img: profile.hero.portraitSrc },
-  { n: '04', label: 'FAQs', to: '/faqs', title: 'Straight answers', desc: 'Arrangements, pricing, SEO, AI search and platforms.', Icon: Question, accent: true },
-  { n: '05', label: 'Testimonials', to: '/testimonials', title: 'Verified feedback only', desc: 'Client testimonials are added as they are verified.', Icon: Quotes },
+  { n: '04', label: 'Testimonials', to: '/testimonials', title: 'What clients said', desc: `${TESTIMONIALS.map((t) => t.name).join(', ')}, in their own words.`, Icon: Quotes, accent: true },
 ] as const
 
 export function HomeExplore() {

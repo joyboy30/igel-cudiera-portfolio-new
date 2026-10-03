@@ -165,9 +165,9 @@ const PROJECTS: Project[] = [
     cat: 'web',
     title: 'Websites & funnels',
     desc: showcase.length
-      ? 'Spin the 3D reel of GoHighLevel practice builds: landing page, funnel, CRM and workflows. WordPress builds listed inside.'
+      ? 'Spin the 3D reel of client website designs and GoHighLevel practice builds. WordPress builds listed inside.'
       : 'The 3D showcase opens once real screenshots and URLs are in. WordPress builds listed inside.',
-    evidence: showcase.length ? 'Practice project' : 'Needs verification',
+    evidence: !showcase.length ? 'Needs verification' : showcase.some((s) => s.evidence === 'Client work') ? 'Client work' : 'Practice project',
     Icon: Globe,
     Section: ShowcasePanel,
     Preview: ShowcasePreview,

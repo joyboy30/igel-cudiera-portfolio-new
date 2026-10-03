@@ -7,7 +7,7 @@ import {
   Sparkle,
   Medal,
   Stack,
-  Question,
+  Quotes,
   MagnifyingGlass,
   Browsers,
   FunnelSimple,
@@ -17,14 +17,14 @@ import {
 } from '@/components/slab'
 import { allShots, aiCases } from '@/data/projects'
 import { certifications } from '@/data/about'
-import { FAQS } from '@/data/faqs'
+import { TESTIMONIALS } from '@/data/testimonials'
 import { profile } from '@/data/profile'
 
 /**
  * Home's showcase: one card per page, each an index of what that page holds,
  * each built from records the pages render in full - the Ahrefs evidence
  * screenshots, the AI-citation clients, the certificates, the service tiers
- * and the FAQs. Nothing here invents a fact.
+ * and the client testimonials. Nothing here invents a fact.
  *
  * Motion is transform-only on a clipped inner track, so a card never adds
  * height and Home stays a single viewport.
@@ -154,18 +154,22 @@ export default function HomeBento() {
         </ul>
       </Link>
 
-      {/* FAQs: the questions drifting up a clipped column. */}
-      <Link to="/faqs" className="bento__card bento__card--quotes">
-        <CardHead Icon={Question} title="FAQs" desc="Working arrangements, SEO, AI search, web builds and what I do not claim." />
-        <div className="bento__media bento__reviews" aria-hidden="true">
+      {/* Testimonials: the client quotes drifting up a clipped column. The
+          second copy only closes the loop, so it is hidden from assistive tech. */}
+      <Link to="/testimonials" className="bento__card bento__card--quotes" aria-label="Testimonials: what clients said">
+        <CardHead Icon={Quotes} title="Testimonials" desc="What clients said about working with me, in their own words." />
+        <div className="bento__media bento__reviews">
           <div className="bento__reviews-track">
-            {[...FAQS.slice(0, 6), ...FAQS.slice(0, 6)].map((f, i) => (
-              <span key={i} className="bento__review">
-                <span className="bento__review-top">
-                  <Question size={14} weight="fill" />
-                  <b>{f.q}</b>
-                </span>
-              </span>
+            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+              <figure key={i} className="bento__review" aria-hidden={i >= TESTIMONIALS.length || undefined}>
+                <figcaption className="bento__review-top">
+                  <Quotes size={14} weight="fill" aria-hidden="true" />
+                  <b>{t.name}</b>
+                </figcaption>
+                <blockquote className="bento__review-role">
+                  “{t.quote}”
+                </blockquote>
+              </figure>
             ))}
           </div>
         </div>

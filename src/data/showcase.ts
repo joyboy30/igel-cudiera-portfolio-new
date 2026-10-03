@@ -3,12 +3,16 @@ import type { Evidence } from './evidence'
 /**
  * The 3D carousel (FunnelBarrel) and its preview dialog read from here.
  *
- * It holds only work with real screenshots behind it. Today that is the
- * GoHighLevel practice build (public/images/gohighlevel/, captured from a
- * practice sub-account named "GHL Specialist Portfolio"), so every item is
- * labelled Practice project - none of it is client work. No Website item has
- * screenshots yet. If the list is ever emptied again, Projects falls back to
- * a "Showcase coming soon" state.
+ * It holds only work with real screenshots behind it:
+ *   - the GoHighLevel practice build (public/images/gohighlevel/, captured
+ *     from a practice sub-account named "GHL Specialist Portfolio") plus a
+ *     demo funnel for a fictional HVAC company ("ghl hvac *.jpg"), all
+ *     labelled Practice project;
+ *   - client website homepages (public/images/website design/), labelled
+ *     Client work. Each is matched to its client by the domain in the
+ *     screenshot's address bar.
+ * If the list is ever emptied again, Projects falls back to a "Showcase
+ * coming soon" state.
  *
  * ghl11.jpg is left out on purpose: it is GoHighLevel's own AI Agents
  * onboarding screen, and its statistics are GoHighLevel's marketing, not
@@ -64,6 +68,10 @@ export type ShowcaseItem = {
 }
 
 const GHL = '/images/gohighlevel'
+/** The HVAC screenshot filenames contain spaces, so encode them for the URL. */
+const hvac = (name: string) => `${GHL}/${encodeURIComponent(`${name}.jpg`)}`
+/** Client website screenshots; the folder and filenames contain spaces too. */
+const site = (name: string) => `/images/${encodeURIComponent('website design')}/${encodeURIComponent(`${name}.jpg`)}`
 
 export const showcase: ShowcaseItem[] = [
   {
@@ -130,6 +138,77 @@ export const showcase: ShowcaseItem[] = [
     thumb: '/showcase/thumbs/ghl-ai-qualification.jpeg',
     shots: [
       { src: `${GHL}/ghl8.jpg`, width: 1907, height: 947, alt: 'GoHighLevel workflow builder showing "GHL – New Inquiry + Lead Qualification": a form-submitted trigger, tag and opportunity steps, notification emails, an AI Lead Qualification step and four branches' },
+    ],
+  },
+  {
+    id: 'ghl-hvac-funnel',
+    label: 'HVAC service request funnel',
+    category: 'Funnel',
+    evidence: 'Practice project',
+    platform: 'GoHighLevel Funnels',
+    desc: 'A demo funnel for Summit Air & Heat, a fictional HVAC company in Phoenix, Arizona: a service page with repair and maintenance options, process steps, FAQs and calls to action, leading to a service request form and a request-received page. Labelled on the page itself as a fictional portfolio demo.',
+    thumb: '/showcase/thumbs/ghl-hvac-funnel.jpeg',
+    shots: [
+      { src: hvac('ghl hvac service'), width: 1856, height: 900, alt: 'HVAC demo funnel hero: "Need HVAC Service? Request Help Today." with a Request HVAC Service button beside an outdoor AC unit', caption: 'HVAC Service Page: hero' },
+      { src: hvac('ghl hvac service1'), width: 1768, height: 818, alt: 'HVAC service cards under "Expert Repairs & Maintenance": Emergency AC Repair, Heating Repair, HVAC Maintenance and Other HVAC Service', caption: 'HVAC Repairs & Maintenance' },
+      { src: hvac('ghl hvac service2'), width: 1731, height: 649, alt: '"How Our Process Works" section with four steps: Submit Your Request, We Review Your Request, We Contact You, Service Is Scheduled', caption: 'HVAC Service Process' },
+      { src: hvac('ghl hvac service3'), width: 1568, height: 683, alt: '"Common Questions" section with five HVAC service FAQs beside Service Request Review and Clear Service Information notes', caption: 'HVAC Service FAQs' },
+      { src: hvac('ghl hvac service4'), width: 1748, height: 424, alt: 'Blue call-to-action band: "Ready to Request HVAC Service?" with a Request HVAC Service button and the note "Fictional portfolio demo funnel · Phoenix, Arizona"', caption: 'HVAC Service Call to Action' },
+      { src: hvac('ghl hvac service solutions'), width: 1886, height: 840, alt: '"Comprehensive HVAC Solutions" section listing Emergency HVAC Repair, AC Repair, Heating Repair, HVAC Maintenance and HVAC Service', caption: 'HVAC Service Solutions' },
+      { src: hvac('ghl hvac service request form'), width: 1097, height: 757, alt: '"Request HVAC Service" form with name, phone, email, service type, urgency, property type, ZIP code and preferred contact method fields', caption: 'HVAC Service Request Form' },
+      { src: hvac('ghl hvac request received page'), width: 896, height: 803, alt: '"Request Received" confirmation page for Summit Air & Heat with a four-step "What Happens Next" list', caption: 'HVAC Request Received Page' },
+    ],
+  },
+  {
+    id: 'web-birthing-center-long-island',
+    label: 'Birthing Center Long Island',
+    category: 'Website',
+    evidence: 'Client work',
+    platform: 'Client website',
+    desc: 'Homepage of the live Birthing Center Long Island site, a client web design.',
+    thumb: '/showcase/thumbs/web-birthing-center-long-island.jpeg',
+    url: 'https://birthingcenterlongisland.com/',
+    shots: [
+      { src: site('birthing center long island'), width: 1895, height: 963, alt: 'Birthing Center Long Island homepage: navigation, holiday announcement bar and the hero "A Birth Center on Long Island, Led by Midwives" with Contact Us and Schedule Tour buttons', caption: 'Homepage, birthingcenterlongisland.com' },
+    ],
+  },
+  {
+    id: 'web-birthing-center-nyc',
+    label: 'Birthing Center NYC',
+    category: 'Website',
+    evidence: 'Client work',
+    platform: 'Client website',
+    desc: 'Homepage of the live Birthing Center NYC site, a client web design.',
+    thumb: '/showcase/thumbs/web-birthing-center-nyc.jpeg',
+    url: 'https://birthingcenternyc.com/',
+    shots: [
+      { src: site('birthing center nyc'), width: 1895, height: 968, alt: 'Birthing Center NYC homepage: navigation, holiday announcement bar and the hero "Holistic Birthing Center NYC" with Contact Us and Schedule Tour buttons', caption: 'Homepage, birthingcenternyc.com' },
+    ],
+  },
+  {
+    id: 'web-holistic-midwifery-ny',
+    label: 'Holistic Midwifery New York',
+    category: 'Website',
+    evidence: 'Client work',
+    platform: 'Client website',
+    desc: 'Homepage of the live Holistic Midwifery New York site, a client web design.',
+    thumb: '/showcase/thumbs/web-holistic-midwifery-ny.jpeg',
+    url: 'https://holisticmidwiferyny.net/',
+    shots: [
+      { src: site('holistic midwifery ny'), width: 1895, height: 966, alt: 'Holistic Midwifery New York homepage: navigation, holiday announcement bar and the hero "Holistic Midwifery New York" with the tagline Home Birth, Birth Center, Planned Hospital Birth', caption: 'Homepage, holisticmidwiferyny.net' },
+    ],
+  },
+  {
+    id: 'web-jamil-brothers',
+    label: 'The Jamil Brothers Realty Group',
+    category: 'Website',
+    evidence: 'Client work',
+    platform: 'Lofty CMS',
+    desc: 'Homepage of the live Jamil Brothers Realty Group site. My work here is Lofty CMS and SEO content management; developing the Lofty platform itself is not claimed.',
+    thumb: '/showcase/thumbs/web-jamil-brothers.jpeg',
+    url: 'https://www.thejamilbrothers.com/',
+    shots: [
+      { src: site('thejamil brothers'), width: 1891, height: 965, alt: 'The Jamil Brothers Realty Group homepage: navigation and the hero "Top-Rated DMV Real Estate Agents" with a Buy, Sell and Valuation home search', caption: 'Homepage, thejamilbrothers.com' },
     ],
   },
 ]

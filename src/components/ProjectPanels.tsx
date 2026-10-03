@@ -339,7 +339,7 @@ export const LocalPanel = () => <IndustryPanel ic={industryCases[2]} />
 function emptyNote(category: string) {
   if (category === 'Practice project') {
     const n = showcase.filter((s) => s.evidence === 'Practice project').length
-    return n ? `Every build in the carousel above (${n}) is a GoHighLevel practice project, not client work.` : null
+    return n ? `${n} of the builds in the carousel above are GoHighLevel practice projects, not client work. Each build carries its own label.` : null
   }
   if (category === 'Website') return 'No website with screenshots yet. The documented WordPress builds are listed below.'
   return null
@@ -353,13 +353,14 @@ export function ShowcasePanel() {
     <SectionWindow label="Websites & funnels">
       <header className="cs__head">
         <span className="cs__eyebrow">3D showcase</span>
-        <h2 className="cs__title">{live ? 'GoHighLevel practice builds' : 'Showcase coming soon'}</h2>
-        <EvidenceTag level={live ? 'Practice project' : 'Needs verification'} />
+        <h2 className="cs__title">{live ? 'Client websites and GoHighLevel builds' : 'Showcase coming soon'}</h2>
+        {!live && <EvidenceTag level="Needs verification" />}
       </header>
       {live ? (
         <p className="cs__lede">
-          A landing page, funnel steps, CRM pipelines and workflows I built in a GoHighLevel practice sub-account. These
-          are real screenshots of practice work, not client projects. Drag the reel, or open any build below.
+          Homepages of client websites, plus a landing page, funnel steps, CRM pipelines and workflows I built in a
+          GoHighLevel practice sub-account and an HVAC service request funnel for a fictional company. Every build is
+          labelled: client work or practice project. Drag the reel, or open any build below.
         </p>
       ) : (
         <p className="cs__lede">
@@ -400,10 +401,7 @@ export function ShowcasePanel() {
 
       <section className="cs__block">
         <h3>Documented website builds</h3>
-        <p className="cs__note">
-          These builds are recorded in my experience. Screenshots and live URLs are not available yet, so they are listed
-          here rather than in the carousel.
-        </p>
+        <p className="cs__note">These builds are recorded in my experience.</p>
         <div className="builds">
           {webBuilds.map((b) => (
             <section key={b.name} className="builds__card">
@@ -416,8 +414,6 @@ export function ShowcasePanel() {
                 rows={[
                   ['Platform', b.platform],
                   ['My role', b.role],
-                  ['Live URL', b.liveUrl ?? noUrl],
-                  ['Screenshots', <span className="cs__nv">None yet {NEEDS_VERIFICATION}</span>],
                 ]}
               />
               <h5>Development work</h5>

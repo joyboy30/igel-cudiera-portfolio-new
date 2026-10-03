@@ -302,7 +302,7 @@ export const industryCases: IndustryCase[] = [
   },
 ]
 
-/* ---------- Website builds (documented, no screenshots yet) ---------- */
+/* ---------- Website builds (documented) ---------- */
 
 export type WebBuild = {
   name: string
@@ -311,8 +311,6 @@ export type WebBuild = {
   role: string
   development: string[]
   seo: string[]
-  liveUrl: string | null
-  screenshots: 'none'
 }
 
 export const webBuilds: WebBuild[] = [
@@ -323,8 +321,6 @@ export const webBuilds: WebBuild[] = [
     role: 'SEO Specialist (iGaming client) · August – November 2023',
     development: ['Built the website on WordPress', 'SEO-friendly site architecture', 'Mobile-first optimization for speed and usability'],
     seo: ['On-page SEO under a limited budget', 'Local SEO and citations', 'Google Search Console setup and Core Web Vitals'],
-    liveUrl: null,
-    screenshots: 'none',
   },
   {
     name: 'Ivy Flowers and Bouquet Shop',
@@ -333,7 +329,5 @@ export const webBuilds: WebBuild[] = [
     role: 'Hands-on training client · March – May 2023',
     development: ['Designed and built the website from scratch on WordPress'],
     seo: ['Google Search Console and GA4 setup', 'XML sitemap and indexing', 'Keyword research, meta titles and descriptions', 'Local citations'],
-    liveUrl: null,
-    screenshots: 'none',
   },
 ]
