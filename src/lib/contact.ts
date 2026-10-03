@@ -1,21 +1,17 @@
-import { profile } from '@/data/profile'
-
 /**
  * Contact submission.
  *
- * Out of the box there is no backend: submitLead() opens the visitor's mail
- * client with a message addressed to profile.email (src/data/profile.ts).
+ * submitLead() POSTs the form as JSON to the serverless function in
+ * api/contact.ts, which emails it to igel.cudiera31@gmail.com through Resend.
+ * The API key lives only in that function's environment, never in this
+ * bundle. It resolves only once the function answers 2xx, so the form never
+ * reports a message as sent unless the email service accepted it.
  *
- * To wire a real backend (Formspree, a serverless function, a webhook...):
- *   1. Set VITE_CONTACT_ENDPOINT in .env.production to the URL that accepts
- *      a JSON POST of the Lead type below.
- *   2. Have it answer 2xx on success, or a non-2xx with { "error": "..." }
- *      and that sentence is shown to the visitor as-is.
- * With the variable unset the mail client path below is used instead.
+ * VITE_CONTACT_ENDPOINT can point the form at another backend that accepts
+ * the same JSON; it defaults to the function above.
  */
 
-export const ENDPOINT: string = import.meta.env.VITE_CONTACT_ENDPOINT ?? ''
-export const RECIPIENT = profile.email
+export const ENDPOINT: string = import.meta.env.VITE_CONTACT_ENDPOINT || '/api/contact'
 
 export const MAX_NAME = 80
 export const MAX_EMAIL = 254
@@ -47,7 +43,6 @@ export type Lead = {
   website: string
 }
 
-export type SubmitResult = { via: 'webhook' } | { via: 'mailto' }
 
 /** Read, trim, cap and sanitise the four fields. Returns null if a required
  *  field is missing or the email does not look like one. */
@@ -63,24 +58,12 @@ export function readLead(data: FormData): Lead | null {
 
 export class SubmitError extends Error {}
 
-export async function submitLead(lead: Lead): Promise<SubmitResult> {
-  if (ENDPOINT) {
-    const res = await fetch(ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(lead),
-    })
-    if (!res.ok) {
-      const body = await res.json().catch(() => null)
-      throw new SubmitError(body?.error || `The server answered ${res.status}.`)
-    }
-    return { via: 'webhook' }
-  }
-
-  const subject = `Project inquiry from ${lead.firstName} ${lead.lastName}`
-  const body = [`Name: ${lead.firstName} ${lead.lastName}`, `Email: ${lead.email}`, '', lead.message].join('\n')
-  // encodeURIComponent on every value blocks header injection (CR/LF) and
-  // parameter smuggling via & or ?.
-  window.location.href = `mailto:${encodeURIComponent(RECIPIENT)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  return { via: 'mailto' }
+/** Resolves once the backend accepted the message; throws SubmitError otherwise. */
+export async function submitLead(lead: Lead): Promise<void> {
+  const res = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lead),
+  }).catch(() => null)
+  if (!res || !res.ok) throw new SubmitError(res ? `The server answered ${res.status}.` : 'Network error.')
 }

@@ -304,6 +304,36 @@
 [data-theme='dark'] .cgrid__submit svg:first-child { color: #0B1120; }
 [data-theme='dark'] .cgrid__submit:hover { background: #FF8F3D; }
 .cgrid__hint { font-size: clamp(11.5px, 0.75vw, 13px); color: var(--muted); }
+/* Prefer WhatsApp? A quiet row under the form, never in the way of it. */
+.cgrid__wa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  flex: 0 0 auto;
+  padding-top: clamp(10px, 1.4vh, 14px);
+  border-top: 1px solid var(--line);
+}
+.cgrid__wa-text { margin: 0; font-size: clamp(12px, 0.8vw, 13.5px); line-height: 1.45; color: var(--muted); }
+.cgrid__wa-text b { color: var(--navy); font-weight: 700; }
+.cgrid__wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  background: var(--tint);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.cgrid__wa-link svg { color: #1FA855; }
+.cgrid__wa-link:hover { background: var(--tint-strong); }
+.cgrid__wa-link:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .cgrid__status {
   display: inline-flex;
   align-items: center;

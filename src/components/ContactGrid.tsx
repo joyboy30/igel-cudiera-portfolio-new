@@ -1,7 +1,7 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { PaperPlaneTilt, CheckCircle, WarningCircle, EnvelopeSimple, ArrowUpRight, WhatsappLogo, LinkedinLogo, GithubLogo, DownloadSimple } from '@/components/slab'
 import { profile } from '@/data/profile'
-import { readLead, submitLead, SubmitError, MAX_NAME, MAX_EMAIL, MAX_MESSAGE, type SubmitResult } from '@/lib/contact'
+import { readLead, submitLead, MAX_NAME, MAX_EMAIL, MAX_MESSAGE } from '@/lib/contact'
 import { usePageMeta } from '@/hooks/usePageMeta'
 
 /**
@@ -12,12 +12,16 @@ import { usePageMeta } from '@/hooks/usePageMeta'
  * dark plate, and the form itself on the right. No phone number is shown. Sized to the panel, so
  * nothing here scrolls; the message box takes whatever height is left.
  *
- * Submission goes through lib/contact.ts, which is the one place a form
- * backend gets wired. Until it is, the same call opens the visitor's mail
- * client with the message laid out, and the success copy says so.
+ * Submission goes through lib/contact.ts to the api/contact.ts function,
+ * which emails it. The sent state only shows once that function confirms the
+ * email service accepted the message; anything else is an error that points
+ * to WhatsApp.
  */
 
-type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'error'; note: string } | { kind: 'sent'; via: SubmitResult['via'] }
+type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'error'; note: string } | { kind: 'sent' }
+
+const SENT_NOTE = "Thank you! Your message has been sent successfully. I'll get back to you as soon as possible."
+const FAIL_NOTE = 'Something went wrong while sending your message. Please try again or contact me through WhatsApp.'
 
 /* The plane takes this long to leave the button. The sent state waits for it
    even when the submit itself is instant, so the send is something you see
@@ -31,24 +35,30 @@ export default function ContactGrid() {
   // Bumped on every failed submit so the shake replays even if the same
   // error is already showing.
   const [shake, setShake] = useState(0)
+  // A ref, not state, so a second submit in the same tick (double click,
+  // Enter held down) is refused before React re-renders the disabled button.
+  const inFlight = useRef(false)
   usePageMeta('contact')
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (inFlight.current) return
     const lead = readLead(new FormData(e.currentTarget))
     if (!lead) {
       setStatus({ kind: 'error', note: 'Add your name, a real email, and a short note.' })
       setShake((n) => n + 1)
       return
     }
+    inFlight.current = true
     setStatus({ kind: 'sending' })
     try {
-      const [result] = await Promise.all([submitLead(lead), wait(FLIGHT_MS)])
-      setStatus({ kind: 'sent', via: result.via })
-    } catch (err) {
-      const note = err instanceof SubmitError ? err.message : 'That did not go through. Email me directly instead.'
-      setStatus({ kind: 'error', note })
+      await Promise.all([submitLead(lead), wait(FLIGHT_MS)])
+      setStatus({ kind: 'sent' })
+    } catch {
+      setStatus({ kind: 'error', note: FAIL_NOTE })
       setShake((n) => n + 1)
+    } finally {
+      inFlight.current = false
     }
   }
 
@@ -134,14 +144,8 @@ export default function ContactGrid() {
               <span className="cgrid__done-mark" aria-hidden="true">
                 <CheckCircle size={30} weight="fill" />
               </span>
-              <h2 className="cgrid__done-title">
-                {status.via === 'webhook' ? 'Got it.' : 'Your mail app has it.'}
-              </h2>
-              <p className="cgrid__done-body">
-                {status.via === 'webhook'
-                  ? 'It is in my inbox. You will hear back within 24 hours.'
-                  : 'The message is laid out and addressed. Press send there and you will hear back within 24 hours.'}
-              </p>
+              <h2 className="cgrid__done-title">Got it.</h2>
+              <p className="cgrid__done-body">{SENT_NOTE}</p>
               <button type="button" className="cgrid__again" onClick={() => setStatus({ kind: 'idle' })}>
                 Write another
               </button>
@@ -206,6 +210,22 @@ export default function ContactGrid() {
                 ) : (
                   <span className="cgrid__hint">I reply within 24 hours.</span>
                 )}
+              </div>
+
+              <div className="cgrid__wa">
+                <p className="cgrid__wa-text">
+                  <b>Prefer WhatsApp?</b> Message me directly on WhatsApp.
+                </p>
+                <a
+                  className="cgrid__wa-link"
+                  href={profile.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat on WhatsApp (opens in a new tab)"
+                >
+                  <WhatsappLogo size={16} weight="fill" aria-hidden="true" />
+                  Chat on WhatsApp
+                </a>
               </div>
             </form>
           )}
